@@ -16,9 +16,11 @@ final class OuterClass {
         }
 
         public class InnerInnerClass {
+            // this uses a hideen field this.this$0 to hold the static
             int innerInnerClassValue = 3;
             void method(String arg) {
-                System.out.println("pv = " + getProtocolVersion());
+                protocolVersion = 5;
+                System.out.println("InnerInnerClass: pv = " + getProtocolVersion());
             }
         }
     }

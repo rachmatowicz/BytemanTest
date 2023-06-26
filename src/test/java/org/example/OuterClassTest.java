@@ -1,24 +1,25 @@
 package org.example;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.jboss.byteman.contrib.bmunit.BMScript;
+import org.jboss.byteman.contrib.bmunit.BMUnitConfig;
+import org.jboss.byteman.contrib.bmunit.BMUnitRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Byteman test of an OuterClass instance
  */
-public class OuterClassTest extends TestCase
+@RunWith(BMUnitRunner.class)
+@BMUnitConfig(debug = true, bmunitVerbose = true)
+public class OuterClassTest
 {
-    public OuterClassTest(String testName )
-    {
-        super( testName );
-    }
-
 
     /**
      * Test access to the various parts of the class
      */
-    public void mainTest()
+    @Test
+    @BMScript(value="Rule.btm", dir="target/test-classes/org/example/byteman")
+    public void bytemanTest()
     {
         // create an instance of a non-static OuterClass using new
         OuterClass outer = new OuterClass();

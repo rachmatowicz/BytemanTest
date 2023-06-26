@@ -1,0 +1,28 @@
+# RULE Check method() is called
+# CLASS OuterClass$InnerStaticClass$InnerInnerClass
+# METHOD method
+# AT ENTRY
+# IF TRUE
+# DO traceln("method() has been called")
+# ENDRULE
+
+# RULE Check method() is called with testArg
+# CLASS OuterClass$InnerStaticClass$InnerInnerClass
+# METHOD method
+# AT ENTRY
+# BIND argVal = $arg
+# IF TRUE
+# DO traceln("method() has been called with arg " + argVal)
+# ENDRULE
+
+RULE Check access to protocol version from within method()
+CLASS OuterClass$InnerStaticClass$InnerInnerClass
+METHOD method
+AT ENTRY
+# AFTER WRITE int.protocolVersion 1
+#BIND pv = OuterClass$InnerStaticClass.getProtocolVersion()
+# actually to call on OuterClass instance this and its InnerStaticClass this$0
+# BIND pv = $this.this$0.getProtocolVersion()
+IF TRUE
+DO traceln("within method(), wrote protocolVersion, pv = ")
+ENDRULE
